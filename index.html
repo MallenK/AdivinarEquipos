@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipos de Fútbol Aleatorios con Escudos</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+  }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  h2 {
+    margin-top: 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    margin: 5px 0;
+  }
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    /* margin-right: 10px; */
+    filter: blur(3px);
+  }
+
+  #equipoAleatorio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #equipoAleatorio div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+
+</style>
+</head>
+<body>
+  <header>
+    <h1>Equipos de Fútbol</h1>
+  </header>
+  <div class="container">
+    <h2>Equipo Aleatorio</h2>
+    <div id="equipoAleatorio">
+      <p>Presiona una tecla para mostrar un equipo aleatorio</p>      
+    </div>
+    <div id="contadorTiempo">
+        Tiempo restante: 60 segundos
+    </div>
+    <div id="contadorPulsaciones">
+        Número de equipos acertados: 0
+    </div>
+    
+  </div>
+
+  <script>
+    const equipos = [
+      { nombre: "Real Madrid (España)", escudo: "img/rma.jpg" },
+      { nombre: "FC Barcelona (España)", escudo: "img/fcb.jpg" },
+      { nombre: "Manchester United (Inglaterra)", escudo: "img/mcu.jpg" },
+      { nombre: "Liverpool (Inglaterra)", escudo: "img/liv.jpg" },
+      { nombre: "Bayern Munich (Alemania)", escudo: "img/bay.jpg" },
+      { nombre: "Juventus (Italia)", escudo: "img/juv.jpg" },
+      { nombre: "Paris Saint-Germain (Francia)", escudo: "img/psg.jpg" },
+      { nombre: "Chelsea (Inglaterra)", escudo: "img/che.jpg" },
+      { nombre: "AC Milan (Italia)", escudo: "img/mil.jpg" },
+      { nombre: "Manchester City (Inglaterra)", escudo: "img/mcc.jpg" },
+      { nombre: "Arsenal (Inglaterra)", escudo: "img/ars.jpg" },
+      { nombre: "Inter Milan (Italia)", escudo: "img/int.jpg" },
+      { nombre: "Borussia Dortmund (Alemania)", escudo: "img/dor.jpg" },
+      { nombre: "Atlético de Madrid (España)", escudo: "img/atm.jpg" },
+      { nombre: "Tottenham Hotspur (Inglaterra)", escudo: "img/tot.jpg" },
+      { nombre: "Ajax (Países Bajos)", escudo: "img/aja.jpg" },
+      { nombre: "AS Roma (Italia)", escudo: "img/rom.jpg" },
+      { nombre: "Valencia CF (España)", escudo: "img/val.jpg" },
+      { nombre: "FC Porto (Portugal)", escudo: "img/por.jpg" },
+      { nombre: "Benfica (Portugal)", escudo: "img/ben.jpg" },
+      { nombre: "Sevilla FC (España)", escudo: "img/sev.jpg" },
+      { nombre: "Olympique de Marsella (Francia)", escudo: "img/oly.jpg" },
+      { nombre: "AS Monaco (Francia)", escudo: "img/mona.jpg" },
+      { nombre: "Celtic FC (Escocia)", escudo: "img/celt.jpg" },
+      { nombre: "Rangers FC (Escocia)", escudo: "img/ran.jpg" },
+      { nombre: "Galatasaray (Turquía)", escudo: "img/gal.jpg" },
+      { nombre: "Napoli (Italia)", escudo: "img/nap.jpg" },
+      { nombre: "Bayer Leverkusen (Alemania)", escudo: "img/lev.jpg" },
+      { nombre: "Schalke 04 (Alemania)", escudo: "img/sha.jpg" },
+      { nombre: "Borussia Mönchengladbach (Alemania)", escudo: "img/mon.jpg" },
+      { nombre: "Lazio (Italia)", escudo: "img/laz.jpg" },
+      { nombre: "Everton (Inglaterra)", escudo: "img/eve.jpg" },
+      { nombre: "West Ham United (Inglaterra)", escudo: "img/whu.jpg" },
+      { nombre: "Lyon (Francia)", escudo: "img/oli.jpg" },
+      { nombre: "Fiorentina (Italia)", escudo: "img/fio.jpg" },
+      { nombre: "Werder Bremen (Alemania)", escudo: "img/wer.jpg" },
+      { nombre: "Aston Villa (Inglaterra)", escudo: "img/asv.jpg" },
+      { nombre: "Leicester City (Inglaterra)", escudo: "img/lei.jpg" },
+      { nombre: "Parma (Italia)", escudo: "img/par.jpg" },
+      { nombre: "Southampton (Inglaterra)", escudo: "img/sou.jpg" },
+      { nombre: "Wolfsburg (Alemania)", escudo: "img/wol.jpg" },
+      { nombre: "Torino (Italia)", escudo: "img/tor.jpg" },
+      { nombre: "Udinese (Italia)", escudo: "img/udi.jpg" },
+      { nombre: "Sampdoria (Italia)", escudo: "img/sam.jpg" },
+      { nombre: "Genoa (Italia)", escudo: "img/gen.jpg" },
+      { nombre: "PSV Eindhoven (Países Bajos)", escudo: "img/psv.jpg" },
+      { nombre: "Sporting CP (Portugal)", escudo: "img/spo.jpg" },
+      { nombre: "Feyenoord (Países Bajos)", escudo: "img/fey.jpg" },
+      { nombre: "VfB Stuttgart (Alemania)", escudo: "img/stu.jpg" },
+      { nombre: "Atalanta (Italia)", escudo: "img/ata.jpg" },
+      { nombre: "Leeds United (Inglaterra)", escudo: "img/lee.jpg" },
+      { nombre: "Hamburg SV (Alemania)", escudo: "img/ham.jpg" },
+      { nombre: "Atletico Bilbao (España)", escudo: "img/ath.jpg" },
+      { nombre: "Real Sociedad (España)", escudo: "img/rso.jpg" },
+      { nombre: "Villarreal CF (España)", escudo: "img/vil.jpg" },
+      { nombre: "Real Betis (España)", escudo: "img/bet.jpg" },
+      { nombre: "Celta Vigo (España)", escudo: "img/cel.jpg" },
+      { nombre: "Bologna (Italia)", escudo: "img/bol.jpg" },
+      // Agrega el resto de los equipos aquí con sus rutas de escudo correspondientes
+      { nombre: "River Plate (Argentina)", escudo: "img/riv.jpg" },
+      { nombre: "Boca Juniors (Argentina)", escudo: "img/boc.jpg" },
+      { nombre: "Estudiantes de La Plata (Argentina)", escudo: "img/est.jpg" },
+      { nombre: "San Lorenzo (Argentina)", escudo: "img/san.jpg" },
+      { nombre: "Independiente (Argentina)", escudo: "img/ind.jpg" },
+      { nombre: "Racing Club (Argentina)", escudo: "img/racc.jpg" },
+      { nombre: "Vélez Sarsfield (Argentina)", escudo: "img/vel.jpg" },
+      { nombre: "Flamengo (Brasil)", escudo: "img/fla.jpg" },
+      { nombre: "Santos (Brasil)", escudo: "img/san.jpg" },
+      { nombre: "São Paulo (Brasil)", escudo: "img/sao.jpg" },
+      { nombre: "Palmeiras (Brasil)", escudo: "img/pal.jpg" },
+      { nombre: "Grêmio (Brasil)", escudo: "img/gre.jpg" },
+      { nombre: "Corinthians (Brasil)", escudo: "img/cor.jpg" },
+      { nombre: "Internacional (Brasil)", escudo: "img/int.jpg" },
+      // Agrega el resto de los equipos aquí con sus rutas de escudo correspondientes
+    ];
+
+
+    const equipoAleatorio = document.getElementById("equipoAleatorio");
+    const contadorPulsaciones = document.getElementById("contadorPulsaciones");
+    const contadorTiempo = document.getElementById("contadorTiempo");
+    const equiposMostrados = [];
+    let pulsaciones = 0;
+
+    function mostrarEquipoAleatorio() {
+      let equipoSeleccionado;
+      do {
+        equipoSeleccionado = equipos[Math.floor(Math.random() * equipos.length)];
+      } while (equiposMostrados.includes(equipoSeleccionado));
+
+      equiposMostrados.push(equipoSeleccionado);
+
+      const equipoHTML = document.createElement("div");
+      const escudoImg = document.createElement("img");
+      escudoImg.src = equipoSeleccionado.escudo;
+      escudoImg.alt = `${equipoSeleccionado.nombre} Escudo`;
+      equipoHTML.appendChild(escudoImg);
+
+      const nombreEquipo = document.createElement("p");
+      equipoHTML.appendChild(nombreEquipo);
+
+      equipoAleatorio.innerHTML = '';
+      equipoAleatorio.appendChild(equipoHTML);
+
+      // Incrementa el contador de pulsaciones
+      pulsaciones++;
+      contadorPulsaciones.textContent = `Número de aciertos: ${pulsaciones}`;
+
+      // Reinicia el contador de tiempo y muestra equipos después de mostrar el primer equipo
+      iniciarContador();
+    }
+
+    let segundos = 60;
+    let interval;
+
+    function iniciarContador() {
+      clearInterval(interval);
+
+      contadorTiempo.textContent = `Tiempo restante: ${segundos} segundos`;
+
+      interval = setInterval(function() {
+        segundos--;
+        contadorTiempo.textContent = `Tiempo restante: ${segundos} segundos`;
+
+        if (segundos === 0) {
+          clearInterval(interval);
+          alert(`Tiempo finalizado. Número de pulsaciones: ${pulsaciones}`);
+        }
+      }, 1000);
+    }
+
+    document.addEventListener("keydown", mostrarEquipoAleatorio);
+  </script>
+</body>
+</html>
